@@ -1,0 +1,29 @@
+const submitButton = document.getElementById('submitButton');
+const inputField = document.getElementById("textInput");
+const listItemContainer = document.querySelector("#listItem");
+
+let itemCount = 0;
+
+inputField.addEventListener('input', function() {
+    submitButton.disabled = inputField.value.trim() === '';
+});
+
+document.querySelector("form").addEventListener('submit', function(event) {
+    event.preventDefault();
+    var entered_data = inputField.value.trim();
+    console.log(entered_data);
+    if (entered_data === '') {
+        alert("Cannot enter an blank field");
+        inputField.value = '';
+        submitButton.disabled = true;
+    } else {
+        itemCount++;
+        const li = document.createElement("li");
+        const currentDate = new Date().toLocaleDateString();
+        li.textContent = `${itemCount}. ${entered_data} (Added on ${currentDate})`;
+        listItemContainer.appendChild(li);
+        document.querySelector("#listItem").appendChild(li);
+        inputField.value = ''; // Clear input field after adding the item
+        submitButton.disabled = true; // Disable button after adding the item
+    }
+});
